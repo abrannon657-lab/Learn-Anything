@@ -174,3 +174,18 @@ function generateImage(op) {
     imageContainer.appendChild(img);
 }
 
+function handleOperator(op) {
+    pulse(op);
+
+    const meaning = {
+        omega:  "Ω → Reset / Ground state",
+        delta:  "Δ → Divergence / Branch",
+        phi:    "Φ → Harmonic alignment",
+        psi:    "Ψ → Projection / Intent",
+        lambda: "Λ → Binding / Merge"
+    }[op] || "Unknown operator";
+
+    logToConsole(`Operator ${op.toUpperCase()} invoked. ${meaning}`);
+    generateImage(op);
+}
+
