@@ -188,4 +188,4 @@ function handleOperator(op) {
     logToConsole(`Operator ${op.toUpperCase()} invoked. ${meaning}`);
     generateImage(op);
 }
-
+index.html
