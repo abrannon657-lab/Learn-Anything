@@ -119,3 +119,28 @@ function renderImage(op) {
 
     container.appendChild(img);
 }
+#pulse-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #00d4ff;
+    margin: 20px auto;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.pulse-active {
+    transform: scale(1.25);
+}
+
+.gen1-image {
+    width: 200px;
+    height: 200px;
+    border: 4px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 12px;
+}
