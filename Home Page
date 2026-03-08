@@ -24,6 +24,7 @@
         <div id="pulse-circle"></div>
     </section>
 
+
     <section id="output-console">
         <h2>Pulse Stream</h2>
         <div id="console-log"></div>
@@ -37,3 +38,89 @@
     <script src="app.js"></script>
 </body>
 </html>
+body {
+    font-family: system-ui, sans-serif;
+    background: #0d0d0f;
+    color: #e6e6e6;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+#operator-panel {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+#operator-panel button {
+    font-size: 32px;
+    padding: 12px 20px;
+    background: #1a1a1d;
+    border: 1px solid #333;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+#operator-panel button:hover {
+    background: #333;
+}
+
+#pulse-visualizer {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+#pulse-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #444;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+#pulse-circle.active {
+    transform: scale(1.4);
+    background: #00d4ff;
+}
+
+#output-console {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#console-log {
+    background: #111;
+    padding: 15px;
+    height: 200px;
+    overflow-y: auto;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.log-line {
+    margin-bottom: 6px;
+}
+
+#image-output {
+    width: 80%;
+    margin: 30px auto;
+}
+
+#image-container img {
+    max-width: 200px;
+    margin: 10px;
+    border-radius: 6px;
+    border: 1px solid #333;
+}
+
+
