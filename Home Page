@@ -113,3 +113,109 @@ canvas {
   background: #000;
   border-radius: 8px;
 }
+
+const canvas = document.getElementById("gen1-canvas");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+  canvas.width = canvas.clientWidth;
+  canvas.height = canvas.clientHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+// --- Gen1 Operator Definitions ---
+const operators = {
+  infinity: { core: "#7dd3fc", orbit: "#38bdf8", nodes: "#f97316" },
+  omega: { core: "#f97316", orbit: "#fb923c", nodes: "#facc15" },
+  delta: { core: "#a855f7", orbit: "#e879f9", nodes: "#22c55e" },
+  frog: { core: "#22c55e", orbit: "#4ade80", nodes: "#22d3ee" },
+  firefly: { core: "#facc15", orbit: "#fde047", nodes: "#22c55e" },
+  idle: { core: "#6b7280", orbit: "#4b5563", nodes: "#9ca3af" }
+};
+
+let currentOp = "infinity";
+let jitter = 0;
+let drift = 0;
+
+// --- UI Wiring ---
+document.querySelectorAll(".ops button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    currentOp = btn.dataset.op;
+    document.querySelectorAll(".ops button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    log(`Operator → ${currentOp}`);
+  });
+});
+
+document.getElementById("recall").onclick = () => {
+  jitter = 0;
+  drift = 0;
+  log("RECALL invoked");
+};
+
+document.getElementById("jitter").onclick = () => {
+  jitter += 0.5;
+  log("Jitter added");
+};
+
+function log(msg) {
+  const el = document.getElementById("log");
+  el.innerHTML += `<div>${msg}</div>`;
+  el.scrollTop = el.scrollHeight;
+}
+
+// --- Orbit Renderer ---
+function draw(t) {
+  const w = canvas.width;
+  const h = canvas.height;
+  const cx = w / 2;
+  const cy = h / 2;
+
+  ctx.clearRect(0, 0, w, h);
+
+  const op = operators[currentOp];
+
+  drift += 0.001;
+
+  // Orbits
+  for (let i = 0; i < 5 + jitter; i++) {
+    const r = (i + 1) * 40;
+    ctx.beginPath();
+    ctx.ellipse(
+      cx,
+      cy,
+      r + Math.sin(t * 0.001 + i) * 10,
+      r * 0.6,
+      i * 0.3 + drift,
+      0,
+      Math.PI * 2
+    );
+    ctx.strokeStyle = op.orbit;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Nodes
+  for (let i = 0; i < 20; i++) {
+    const angle = t * 0.001 + i;
+    const r = 120 + Math.sin(i * 0.5) * 40;
+    const x = cx + Math.cos(angle) * r;
+    const y = cy + Math.sin(angle * 1.2) * r * 0.6;
+
+    ctx.fillStyle = op.nodes;
+    ctx.beginPath();
+    ctx.arc(x, y, 4, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Core
+  ctx.fillStyle = op.core;
+  ctx.beginPath();
+  ctx.arc(cx, cy, 20, 0, Math.PI * 2);
+  ctx.fill();
+
+  requestAnimationFrame(draw);
+}
+
+requestAnimationFrame(draw);
