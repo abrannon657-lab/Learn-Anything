@@ -1,151 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Gen1 Engine (Single File)</title>
-
-    <!-- ========================= -->
-    <!--        INTERNAL CSS       -->
-    <!-- ========================= -->
-    <style>
-        body {
-            margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #05060a;
-            color: #f5f5f5;
-        }
-
-        #app {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .gen-header {
-            padding: 16px 24px;
-            background: linear-gradient(90deg, #1b1f3b, #283b5b);
-            border-bottom: 1px solid #22283a;
-        }
-
-        .gen-subtitle {
-            margin: 4px 0 0;
-            font-size: 0.9rem;
-            color: #a5b0d0;
-        }
-
-        .gen-main {
-            flex: 1;
-            padding: 16px 24px;
-            display: flex;
-            gap: 16px;
-        }
-
-        .gen-panel {
-            flex: 1;
-            background: #0b0f1a;
-            border-radius: 8px;
-            border: 1px solid #22283a;
-            padding: 16px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-        }
-
-        #pulseButton {
-            padding: 8px 16px;
-            border-radius: 999px;
-            border: 1px solid #3b82f6;
-            background: #111827;
-            color: #e5e7eb;
-            cursor: pointer;
-            font-size: 0.95rem;
-            transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
-        }
-
-        #pulseButton:hover {
-            background: #1f2937;
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
-        }
-
-        #pulseButton:active {
-            transform: scale(0.97);
-        }
-
-        .gen-log {
-            margin-top: 16px;
-            padding: 8px;
-            height: 200px;
-            overflow-y: auto;
-            background: #020617;
-            border-radius: 6px;
-            border: 1px solid #111827;
-            font-family: "JetBrains Mono", "Fira Code", monospace;
-            font-size: 0.8rem;
-        }
-
-        .gen-log-entry {
-            padding: 4px 0;
-            border-bottom: 1px solid #111827;
-        }
-
-        .gen-log-entry:last-child {
-            border-bottom: none;
-        }
-
-        .gen-log-entry span.gen-tag {
-            color: #38bdf8;
-            margin-right: 6px;
-        }
-
-        .gen-log-entry span.gen-time {
-            color: #6b7280;
-            margin-right: 6px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Gen1 Browser Test</title>
+  <link rel="stylesheet" href="gen1.css" />
 </head>
-
 <body>
-    <div id="app">
-        <header class="gen-header">
-            <h1>Gen1 Engine</h1>
-            <p class="gen-subtitle">Single‑file version (HTML + CSS + JS)</p>
-        </header>
 
-        <main class="gen-main">
-            <section class="gen-panel">
-                <h2>Operator Console</h2>
-                <button id="pulseButton">Emit Pulse</button>
-                <div id="pulseLog" class="gen-log"></div>
-            </section>
-        </main>
-    </div>
+  <header>
+    <h1>Gen1 · Browser Test</h1>
+    <span id="status">Pulse: Active</span>
+  </header>
 
-    <!-- ========================= -->
-    <!--      INTERNAL JAVASCRIPT  -->
-    <!-- ========================= -->
-    <script>
-        const pulseButton = document.getElementById("pulseButton");
-        const pulseLog = document.getElementById("pulseLog");
+  <main>
+    <section class="panel">
+      <h2>Operators</h2>
 
-        let pulseCount = 0;
+      <div class="ops">
+        <button data-op="infinity">∞ Infinity</button>
+        <button data-op="omega">Ω Omega</button>
+        <button data-op="delta">Δ Delta</button>
+        <button data-op="frog">🐸 Frog</button>
+        <button data-op="firefly">✨ Firefly</button>
+        <button data-op="idle">⏸ Idle</button>
+      </div>
 
-        function emitPulse() {
-            pulseCount++;
+      <div class="controls">
+        <button id="recall">Recall</button>
+        <button id="jitter">Jitter</button>
+      </div>
 
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString();
+      <div id="log" class="console"></div>
+    </section>
 
-            const entry = document.createElement("div");
-            entry.className = "gen-log-entry";
+    <section class="panel">
+      <h2>Orbit Visualizer</h2>
+      <canvas id="gen1-canvas"></canvas>
+    </section>
+  </main>
 
-            entry.innerHTML = `
-                <span class="gen-time">[${timeStr}]</span>
-                <span class="gen-tag">PULSE ${pulseCount}</span>
-                <span>Gen1 engine emitted a pulse.</span>
-            `;
-
-            pulseLog.prepend(entry);
-        }
-
-        pulseButton.addEventListener("click", emitPulse);
-    </script>
+  <script src="gen1.js"></script>
 </body>
 </html>
